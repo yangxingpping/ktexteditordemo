@@ -5,8 +5,10 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 #include <KF5/KSyntaxHighlighting/KSyntaxHighlighting/Repository>
+#include <KF5/KSyntaxHighlighting/KSyntaxHighlighting/Definition>
 
 #include <QVBoxLayout>
+#include <assert.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,9 +23,10 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(view);
 
     KSyntaxHighlighting::Repository repository;
-    //auto def = repository.definitionForFileName("gcode.xml");
-    mSyntax = new KSyntaxHighlighting::SyntaxHighlighter(view->document());
-    //mSyntax->setDefinition(def);
+    auto def = repository.definitionForFileName("../gcode.xml");
+    assert(def.isValid());
+	mSyntax = new KSyntaxHighlighting::SyntaxHighlighter(view->document());
+    mSyntax->setDefinition(def);
     ui->centralwidget->setLayout(layout);
 }
 
