@@ -4,7 +4,6 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
-#include <KF5/KSyntaxHighlighting/KSyntaxHighlighting/Repository>
 #include <KF5/KSyntaxHighlighting/KSyntaxHighlighting/Definition>
 
 #include <QVBoxLayout>
@@ -22,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addWidget(view);
 
-    KSyntaxHighlighting::Repository repository;
-    auto def = repository.definitionForFileName("../gcode.xml");
+    
+    static KSyntaxHighlighting::Definition  def = repository.definitionForFileName("../gcode.xml");
     assert(def.isValid());
 	mSyntax = new KSyntaxHighlighting::SyntaxHighlighter(view->document());
     mSyntax->setDefinition(def);
